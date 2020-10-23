@@ -1,12 +1,15 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="login()">
+    <div class="alert alert-danger" *ngIf="form.errors">Input fields are invalid !</div>
     <div class="form-group">
         <label for="username">Username</label>
         <input formControlName="username" type="text" name="username" id="username" class="form-control">
+        <div *ngIf="form.get('username').pending">Checking For uniqueness....</div>
         <div class="alert alert-danger" *ngIf="form.get('username').touched && form.get('username').invalid">
             <div *ngIf="form.get('username').errors.required">Username is required!</div>
             <div *ngIf="form.get('username').errors.minlength">Username should be minimum
                 {{ form.get('username').errors.minlength.requiredLength }} length !</div>
             <div *ngIf="form.get('username').errors.cannotContainSpace">Username cannot contain space!</div>
+            <div *ngIf="form.get('username').errors.shouldBeUnique">Username should be unique!</div>
         </div>
     </div>
     <div class="form-group">
