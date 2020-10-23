@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupFormComponent } from './signup-form/signup-form.component';
+import { NewCourseFormComponentComponent } from './new-course-form-component/new-course-form-component.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    NewCourseFormComponentComponent
   ],
   imports: [
     BrowserModule,

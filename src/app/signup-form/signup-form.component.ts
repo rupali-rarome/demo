@@ -16,11 +16,13 @@ export class SignupFormComponent implements OnInit {
       SignupValidate.cannotContainSpace
       ],
       SignupValidate.shouldBeUnique),
-    password: new FormControl('',
-      [Validators.required,
-      Validators.minLength(3),
-      SignupValidate.cannotContainSpace
-      ])
+    account: new FormGroup({
+      password: new FormControl('',
+        [Validators.required,
+        Validators.minLength(3),
+        SignupValidate.cannotContainSpace
+        ])
+    })
   });
 
   login() {
@@ -30,7 +32,7 @@ export class SignupFormComponent implements OnInit {
   }
 
   get password() {
-    return this.form.get('password');
+    return this.form.get('account.password');
   }
 
   constructor() { }
