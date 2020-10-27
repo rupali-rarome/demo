@@ -1,0 +1,11 @@
+<input type="text" name="username" class="form-control" (keyup.enter)="create(username)" #username
+    placeholder="Please enter your username">
+
+<ul class="list-group">
+    <li class="list-group-item " *ngFor="let p of posts" contenteditable="true" #updatedata
+        (keyup.enter)="update(updatedata, p.id)">
+        {{ p. name }}
+        <button class="btn btn-danger btn-sm" (click)="delete(p.id)">Delete</button>
+    </li>
+</ul>
+<!-- {{ posts | json }} -->

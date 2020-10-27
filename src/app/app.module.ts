@@ -7,6 +7,8 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { NewCourseFormComponentComponent } from './new-course-form-component/new-course-form-component.component';
+import { PostsComponent } from './posts/posts.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -14,13 +16,15 @@ import { NewCourseFormComponentComponent } from './new-course-form-component/new
     AppComponent,
     ContactFormComponent,
     SignupFormComponent,
-    NewCourseFormComponentComponent
+    NewCourseFormComponentComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
