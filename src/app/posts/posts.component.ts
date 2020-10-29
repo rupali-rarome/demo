@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { title } from 'process';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { PostsService } from '../services/posts.service';
+
+
 
 @Component({
   selector: 'posts',
@@ -11,42 +13,60 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class PostsComponent implements OnInit {
   posts: any;
-  private getUserUrl = 'http://localhost:8000/api/users';
-  private createUserUrl = 'http://localhost:8000/api/create';
-  private updateUrl = 'http://localhost:8000/api/update/';
-  private deleteUrl = 'http://localhost:8000/api/delete/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private service: PostsService) { }
+
+  ngOnInit(): void {
+    this.service.getUsers().subscribe(
+      response => this.posts = response,
+      error => {
+        alert('An unexpected error occured');
+        console.log('error');
+      }
+    )
+  }
 
   create(input: HTMLInputElement) {
     let postdata = {
-      'name': input.value, 'email': "test@gmail.com", 'password': "qwerty", 'password_confirmation': "qwerty"
+      'name': input.value, 'email': "test1@gmail.com", 'password': "qwerty", 'password_confirmation': "qwerty"
     };
-    // console.log(postdata);
-    this.http.post(this.createUserUrl, postdata).subscribe(response => {
+    this.service.createUser(postdata).subscribe(response => {
       console.log(response);
+    }, (error: Response) => {
+      if (error.status === 422) {
+        //this.form.setErrors(error.json());
+        alert('Data already exists');
+        console.log('error');
+      } else {
+        alert('An unexpected error occured');
+        console.log('error');
+      }
+
     });
   }
 
   update(input: HTMLInputElement, id) {
-    let postdata = {
-      'name': input.textContent
-    };
-    this.http.put(this.updateUrl + id, postdata).subscribe(response => {
+    let postdata = { 'name': input.textContent };
+    this.service.updateUser(id, postdata).subscribe(response => {
       console.log(response);
+    }, error => {
+      alert('An unexpected error occured');
+      console.log('error');
     });
   }
 
   delete(id) {
-    this.http.get(this.deleteUrl + id).subscribe(response => {
+    this.service.deleteUsers(id).subscribe(response => {
       console.log(response);
+      this.ngOnInit();
+    }, (error: Response) => {
+      if (error.status === 404) {
+        alert('User not found');
+        console.log('error');
+      } else {
+        alert('An unexpected error occured');
+        console.log('error');
+      }
     });
   }
-
-  ngOnInit(): void {
-    this.http.get(this.getUserUrl).subscribe(
-      response => { this.posts = response; }
-    )
-  }
-
 }
