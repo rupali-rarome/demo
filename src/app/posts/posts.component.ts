@@ -23,18 +23,18 @@ export class PostsComponent implements OnInit {
         alert('An unexpected error occured');
         console.log('error');
       }
-    )
+    );
   }
 
   create(input: HTMLInputElement) {
-    let postdata = {
-      'name': input.value, 'email': "test1@gmail.com", 'password': "qwerty", 'password_confirmation': "qwerty"
+    const postdata = {
+      name: input.value, email: 'test1@gmail.com', password: 'qwerty', password_confirmation: 'qwerty'
     };
     this.service.createUser(postdata).subscribe(response => {
       console.log(response);
     }, (error: Response) => {
       if (error.status === 422) {
-        //this.form.setErrors(error.json());
+        // this.form.setErrors(error.json());
         alert('Data already exists');
         console.log('error');
       } else {
@@ -46,7 +46,7 @@ export class PostsComponent implements OnInit {
   }
 
   update(input: HTMLInputElement, id) {
-    let postdata = { 'name': input.textContent };
+    const postdata = { name: input.textContent };
     this.service.updateUser(id, postdata).subscribe(response => {
       console.log(response);
     }, error => {

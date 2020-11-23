@@ -32,8 +32,8 @@ export class NewCourseFormComponentComponent {
   //     topics: fb.array
   //   })
   // }
-  // //End of Approach 
-  
+  // //End of Approach
+
   form = new FormGroup({
     topics: new FormArray([]),
   });
@@ -44,7 +44,7 @@ export class NewCourseFormComponentComponent {
   }
 
   removeTopic(topic: FormControl) {
-    let index = this.topics.controls.indexOf(topic);
+    const index = this.topics.controls.indexOf(topic);
     this.topics.removeAt(index);
   }
 

@@ -24,8 +24,8 @@ export class GithubComponent implements OnInit {
   ngOnInit() {
     combineLatest([this.route.paramMap, this.route.queryParamMap]).pipe(
       switchMap(combined => {
-        let id = combined[0].get('username');
-        let page = combined[1].get('page');
+        const id = combined[0].get('username');
+        const page = combined[1].get('page');
         return this.service.getFollowers();
       })).subscribe(response => this.followers = response);
   }
